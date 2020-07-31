@@ -41,20 +41,14 @@ public class CardControl {
             }
 
             // A
-            if (b1 == 1) {
-                b1 += 20;
-            }
-            if (b2 == 1) {
-                b2 += 20;
-            }
+            b1 = b1 == 1 ? b1 + 20 : b1;
+            b2 = b2 == 1 ? b2 + 20 : b2;
 
             // 2
-            if (b1 == 2) {
-                b1 += 30;
-            }
-            if (b2 == 2) {
-                b2 += 30;
-            }
+            b1 = b1 == 2 ? b1 + 30 : b1;
+            b2 = b2 == 2 ? b2 + 30 : b2;
+
+
             flag = b2 - b1;
             // 其他的卡牌已经数值已经排好序了
             // 如果数值相同，按照花色排序
@@ -88,12 +82,13 @@ public class CardControl {
             if (judgeCard(b) == CardType.c4) {
                 return false;
             }
+            // 牌型不一样返回false
+            return false;
         }
 
         //
         int len = a.size();
         switch (judgeCard(a)) {
-            // todo bug
             case c1, c2, c3 : {
                 return cardCompare(a.get(0), b.get(0));
             }
@@ -104,16 +99,12 @@ public class CardControl {
                 return cardCompare(a.get(2), b.get(2));
             }
             // todo 存疑
-            case c1122, c111222: {
+            case c112233, c111222: {
                 return cardCompare(a.get(0), b.get(0)) && len == b.size();
             }
             case c11122234: {
                 return cardCompare(a.get(2), b.get(2)) && judgeCard(b) == CardType.c11122234;
             }
-
-
-
-
             default : {
             }
         }
@@ -153,7 +144,6 @@ public class CardControl {
 
                 }
             }
-            // todo 存疑
             // 王炸
             if (len == 2 && l.get(0).color == 5 && l.get(1).color == 5) {
                 return CardType.c00;
@@ -180,12 +170,29 @@ public class CardControl {
                 }
             }
 
+            // 飞机 c111222
+            if (len == 6) {
+                    if (l.get(0).points == l.get(2).points && l.get(3).points == l.get(5).points) {
+                        return CardType.c111222;
+                }
+            }
+
+
             // todo
             // 连对
-
-            // 飞机
+            if (len % 2 == 0) {
+                for (int i = 0; i < l.size(); i += 2) {
+                    if (l.get(i).points == l.get(i + 1).points) {
+                        return CardType.c112233;
+                    }
+                }
+            }
 
             // 顺子
+
+            if (l.get(0).points + len - 1  == l.get(len - 1).points) {
+                return CardType.c12345;
+            }
 
 
         }
@@ -217,7 +224,6 @@ public class CardControl {
             b2 += 50;
         }
 
-        // todo 可能会出现bug
         // A
         b1 = b1 == 1 ? b1 + 20 : b1;
         b2 = b2 == 1 ? b2 + 20 : b2;
@@ -265,22 +271,9 @@ public class CardControl {
     }
 
 
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

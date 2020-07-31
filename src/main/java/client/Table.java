@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.Socket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -662,6 +663,7 @@ public class Table extends JFrame implements Runnable {
                     // 接收到包含地主的卡牌添加到bossCards
                     case 6: {
                         PlayerControl.getBossCards(json, bossCards);
+                        
 
                     }
                     break;

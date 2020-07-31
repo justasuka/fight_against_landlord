@@ -34,7 +34,7 @@ public enum CardType {
     /**
      * 连对
      */
-    c1122,
+    c112233,
     /**
      * 飞机
      */
